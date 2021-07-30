@@ -19,7 +19,7 @@ contract Metaficate is ERC721 {
     constructor (string memory name_, string memory symbol_) ERC721(name_, symbol_) {
     }
 
-    function mint() public payable returns (uint256 tokenId) {
+    function mint() public returns (uint256 tokenId) {
         tokenId = tokenCount;
         tokenCount = tokenCount + 1;
         super._mint(msg.sender, tokenId);
