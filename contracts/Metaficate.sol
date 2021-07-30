@@ -9,6 +9,13 @@ contract Metaficate is ERC721 {
 
     uint256 tokenCount = 0;
 
+    // tokenId => TokenInfo
+    mapping(uint256 => TokenInfo) public tokenInfos;
+
+    struct TokenInfo {
+
+    }
+
     constructor (string memory name_, string memory symbol_) ERC721(name_, symbol_) {
     }
 
@@ -28,7 +35,7 @@ contract Metaficate is ERC721 {
                     bytes(
                         abi.encodePacked(
                             '{"name":"',
-                            uint2str(tokenId),
+                            toString(tokenId),
                             '", "description":"',
                             "my desc",
                             '", "image": "',
@@ -42,22 +49,27 @@ contract Metaficate is ERC721 {
         );
     }
 
-    // return github logo svg
     function createImage() public pure returns (string memory) {
+        string addr = 'Oxd70804463bb2760c3384fc87bbe779e3d91bab3a';
+        string id = '1';
+        string end = '1/2501';
+        string times = '21';
+        string start = '2020.11.11';
+        string text = 'Curators are critical to the Graph decentralized economy.';
         return string(
             abi.encodePacked(
               '<svg xmlns="http://www.w3.org/2000/svg" width="520" height="600" font-family="Arial">',
               '<rect width="520" height="600" rx="26" fill="#6f4cff" />',
               '<rect x="30" y="40" width="460" height="520" rx="26" fill="#fff" />',
               '<path fill="#fff176" d="M30 310h460v110H30z" />',
-              '<text x="30" y="28" font-size="17">Oxd70804463bb2760c3384fc87bbe779e3d91bab3a</text>',
+              '<text x="30" y="28" font-size="17">', addr, '</text>',
               '<text x="42" y="96" font-size="31">The Graph Curator</text>',
-              '<text x="42" y="146" font-size="29">ID: 1</text>',
-              '<text x="305" y="146" font-size="29" text-anchor="end">1/2501</text>',
-              '<text x="42" y="192" font-size="29">TIMES: 21</text>',
-              '<text x="42" y="242" font-size="29">STARTED ON: 2020.11.11</text>',
+              '<text x="42" y="146" font-size="29">ID: ', id, '</text>',
+              '<text x="305" y="146" font-size="29" text-anchor="end">', end, '</text>',
+              '<text x="42" y="192" font-size="29">TIMES: ', times, '</text>',
+              '<text x="42" y="242" font-size="29">STARTED ON: ', start, '</text>',
               '<text x="42" y="296" font-size="29">SNAPSHOTTED ON: 2021.7.30</text>',
-              '<text text-anchor="middle" x="250" y="369" font-size="15">Curators are critical to the Graph decentralized economy.</text>',
+              '<text text-anchor="middle" x="250" y="369" font-size="15">', text, '</text>',
               '<svg x="348" y="52">',
               '<path fill="#fff" d="M0 0h110v110H0z" />',
               '<g transform="scale(1.15)">',
@@ -87,26 +99,29 @@ contract Metaficate is ERC721 {
         );
     }
 
-    //https://stackoverflow.com/questions/47129173/how-to-convert-uint-to-string-in-solidity
-    function uint2str(uint _i) internal pure returns (string memory _uintAsString) {
-        if (_i == 0) {
+    // https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/Strings.sol
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` decimal representation.
+     */
+    function toString(uint256 value) internal pure returns (string memory) {
+        // Inspired by OraclizeAPI's implementation - MIT licence
+        // https://github.com/oraclize/ethereum-api/blob/b42146b063c7d6ee1358846c198246239e9360e8/oraclizeAPI_0.4.25.sol
+
+        if (value == 0) {
             return "0";
         }
-        uint j = _i;
-        uint len;
-        while (j != 0) {
-            len++;
-            j /= 10;
+        uint256 temp = value;
+        uint256 digits;
+        while (temp != 0) {
+            digits++;
+            temp /= 10;
         }
-        bytes memory bstr = new bytes(len);
-        uint k = len;
-        while (_i != 0) {
-            k = k-1;
-            uint8 temp = (48 + uint8(_i - _i / 10 * 10));
-            bytes1 b1 = bytes1(temp);
-            bstr[k] = b1;
-            _i /= 10;
+        bytes memory buffer = new bytes(digits);
+        while (value != 0) {
+            digits -= 1;
+            buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));
+            value /= 10;
         }
-        return string(bstr);
+        return string(buffer);
     }
 }
