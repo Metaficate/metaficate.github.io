@@ -26,6 +26,8 @@ contract Metaficate is ERC721 {
     }
 
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
+        string memory name = 'The Graph Curator Metafication';
+        string memory desc = 'Curators use their knowledge of the web3 ecosystem to assess and signal on the subgraphs that should be indexed by The Graph Network. Metaficate is an on-chain generative art and decentralized certificate created for the metaverse and the web 3 world.';
         string memory image = Base64.encode(bytes(createImage()));
 
         return string(
@@ -35,9 +37,9 @@ contract Metaficate is ERC721 {
                     bytes(
                         abi.encodePacked(
                             '{"name":"',
-                            toString(tokenId),
+                            name,
                             '", "description":"',
-                            "my desc",
+                            description,
                             '", "image": "',
                             'data:image/svg+xml;base64,',
                             image,
@@ -50,12 +52,12 @@ contract Metaficate is ERC721 {
     }
 
     function createImage() public pure returns (string memory) {
-        string addr = 'Oxd70804463bb2760c3384fc87bbe779e3d91bab3a';
-        string id = '1';
-        string end = '1/2501';
-        string times = '21';
-        string start = '2020.11.11';
-        string text = 'Curators are critical to the Graph decentralized economy.';
+        string memory addr = 'Oxd70804463bb2760c3384fc87bbe779e3d91bab3a';
+        string memory id = '1';
+        string memory end = '1/2501';
+        string memory times = '21';
+        string memory start = '2020.11.11';
+        string memory text = 'Curators are critical to the Graph decentralized economy.';
         return string(
             abi.encodePacked(
               '<svg xmlns="http://www.w3.org/2000/svg" width="520" height="600" font-family="Arial">',
