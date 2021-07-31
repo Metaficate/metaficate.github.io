@@ -11,7 +11,10 @@
 <p align="center">
 	💫 <a href="https://www.metaficate.com/">metaficate.com</a>
 	🌱 <a href="https://twitter.com/rhizomedao">@RhizomeDAO</a>
-  
+
+<p align="center">
+	<a href="https://github.com/Metaficate/metaficate.github.io/blob/master/readme/readme-cn.md">Readme - Chinese Version 中文版</a>
+
   ## About
 In the real world, people's achievements are endorsed by the state and institutions that issue certificates, such as university diplomas in China, which are verified by universities and the Ministry of Education and have official websites that provide verification services.
 
