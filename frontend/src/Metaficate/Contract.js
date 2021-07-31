@@ -7,6 +7,7 @@ const ABI = require('./ABI.json')
 export const CONTRACT_ADDRESS = '0xee40148950e08e1F0bF6227EF76183151ab2D9A8'
 export const NETWORK_ID = '4'
 export const NETWORK_NAME = 'Rinkeby'
+export const OPENSEA_GALLERY_URL = 'https://testnets.opensea.io/collection/metaficate-kh0yacpzjk'
 function getOpenSeaUrlInternal(tokenId) {
   return `https://testnets.opensea.io/assets/${CONTRACT_ADDRESS}/${tokenId}`
 }
