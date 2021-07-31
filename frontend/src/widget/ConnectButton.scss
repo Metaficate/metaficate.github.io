@@ -1,0 +1,24 @@
+@use 'sass:math';
+@import '../resources/common.scss';
+
+$button-color: $theme-color2;
+$button-height: 45px;
+$text-active-color: $theme-color4;
+
+.connect-button {
+  display: inline-block;
+  height: $button-height;
+  line-height: $button-height;
+  text-align: center;
+  font-size: 1.5em;
+  border-radius: math.div($button-height, 2);
+  border: 1px solid $button-color;
+  background-color: transparent;
+  color: $button-color;
+  padding: 0 13px;
+  cursor: pointer;
+  &:hover {
+    background-color: $button-color;
+    color: $text-active-color;
+  }
+}
