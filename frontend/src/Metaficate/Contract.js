@@ -2,15 +2,24 @@
 import Web3 from 'web3';
 import { Base64 } from 'js-base64'
 
-// TODO releace to official contract
-const ABI = require('./ABI.json')
-export const CONTRACT_ADDRESS = '0xee40148950e08e1F0bF6227EF76183151ab2D9A8'
-export const NETWORK_ID = '4'
-export const NETWORK_NAME = 'Rinkeby'
-export const OPENSEA_GALLERY_URL = 'https://testnets.opensea.io/collection/metaficate-kh0yacpzjk'
+// contract related definition
+const ABI = require('./MetaficateDevABI.json')
+export const NETWORK_ID = '80001'
+export const NETWORK_NAME = 'Mumbai'
+export const CONTRACT_ADDRESS = '0xf5619eadc0579ae4720a5e9bb7564236444462b7'
+export const OPENSEA_GALLERY_URL = 'https://testnets.opensea.io/collection/metaficate-p35i3tinyf'
 function getOpenSeaUrlInternal(tokenId) {
-  return `https://testnets.opensea.io/assets/${CONTRACT_ADDRESS}/${tokenId}`
+  return `https://testnets.opensea.io/assets/mumbai/${CONTRACT_ADDRESS}/${tokenId}`
 }
+
+// const ABI = require('./MetaficateABI.json')
+// export const NETWORK_ID = '4'
+// export const NETWORK_NAME = 'Rinkeby'
+// export const CONTRACT_ADDRESS = '0xee40148950e08e1F0bF6227EF76183151ab2D9A8'
+// export const OPENSEA_GALLERY_URL = 'https://testnets.opensea.io/collection/metaficate-kh0yacpzjk'
+// function getOpenSeaUrlInternal(tokenId) {
+//   return `https://testnets.opensea.io/assets/${CONTRACT_ADDRESS}/${tokenId}`
+// }
 
 /**
  * General MetaMask manager, controll account related logic
