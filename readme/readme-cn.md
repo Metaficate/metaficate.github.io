@@ -1,5 +1,5 @@
 <div align="center">
-	<img width="600" src="readme/Metaficate-logo.png" alt="Metaficate Picture">
+	<img width="600" src="Metaficate-logo.png" alt="Metaficate Picture">
 	<br />
 	<br />
 </div>
@@ -11,6 +11,9 @@
 <p align="center">
 	💫 <a href="https://www.metaficate.com/">metaficate.com</a>
 	🌱 <a href="https://twitter.com/rhizomedao">@RhizomeDAO</a>
+
+<p align="center">
+	<a href="https://github.com/Metaficate/metaficate.github.io/blob/master/README.md">Readme - English Version</a>
   
    ## 关于
 
@@ -37,7 +40,13 @@ Graph Curator Metaficate 是一个足够复杂的 Metaficate 用例。
 最近，由 The Graph 分发的 POAP 徽章 NFT 受到了一些随机数攻击。这导致一些符合条件的开发者没有收到他们的 POAP，NFT 和相应的 GRT 奖励都被攻击者窃取了。
 
 不同于 POAP 和 Galaxy.eco 等NFT，Metaficate NFT 是在区块链上创建、生成和认领的。这种去中心化的原生 NFT 既避免了属于某个地址的 NFT 被人冒领，又确保其数据几乎不可能丢失或被篡改。
-  
+ 
+<div align="center">
+	<img width="300" src="card.png" alt="Card">
+	<br />
+	<br />
+</div>
+
   ## 更多应用场景
 1. 无需中心化背书的链上凭证：Metaficate 的白名单数据来源、生成代码和 NFT 卡片信息全部存于链上，未来将加强合约的安全性，建立通用标准，服务更多web3用户；
 2. 更加高效的社区管理：社区管理者可以借助现有的一些工具，比如已支持 Polygon NFT的 collab.land 机器人，为社区的 discord 和 telegram 群组建立精准的用户分类，提高社区管理效率；
