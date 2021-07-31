@@ -123,11 +123,18 @@ contract Metaficate is ERC721, ChainlinkClient {
     uint256 public combinedInfo;
 
     constructor() ERC721('Metaficate', 'MFT') {
+        /*
         // Kovan Testnet
         setChainlinkToken(0xa36085F69e2889c224210F603D836748e7dC0088);
         oracle = 0x2f90A6D021db21e1B2A077c5a37B3C7E75D15b7e;
         jobId = "29fa9aa13bf1468788b7cc4a500a45b8";
         fee = 10 ** 17; // 0.1 LINK
+        */
+        // Matic Mumbai Testnet
+        setChainlinkToken(0x326C977E6efc84E512bB9C30f76E30c160eD06FB);
+        oracle = 0x58BBDbfb6fca3129b91f0DBE372098123B38B5e9;
+        jobId = "da20aae0e4c843f6949e5cb3f7cfe8c4";
+        fee = 10 ** 16; // 0.01 LINK
     }
 
     function requestCuratorInfo() public returns (bytes32 requestId) 
@@ -159,8 +166,8 @@ contract Metaficate is ERC721, ChainlinkClient {
         Meta memory meta;
         meta.addr = msg.sender;
         meta.key = uint(keccak256(abi.encodePacked(tokenId, block.timestamp, msg.sender)));
-        meta.times = this.GetTimes();
-        meta.createdAt = this.GetCreatedAt();
+        meta.times = combinedInfo / 1e10;
+        meta.createdAt = combinedInfo % 1e10;
         metas[tokenId] = meta;
         super._mint(msg.sender, tokenId);
     }
@@ -282,16 +289,4 @@ contract Metaficate is ERC721, ChainlinkClient {
     function addressToString(address _addr) public pure returns(string memory) {
         return Strings.toHexString(uint160(_addr), 20);
     }
-
-    function GetTimes() view public returns (uint256)
-	{
-		uint256 answer = combinedInfo / 1e10 ;
-		return answer;
-	}
-	
-	function GetCreatedAt() view public returns (uint256)
-	{
-		uint256 answer = combinedInfo % 1e10 ;
-		return answer;
-	}
 }
