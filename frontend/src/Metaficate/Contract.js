@@ -5,6 +5,11 @@ import { Base64 } from 'js-base64'
 // TODO releace to official contract
 const ABI = require('./ABI.json')
 export const CONTRACT_ADDRESS = '0xee40148950e08e1F0bF6227EF76183151ab2D9A8'
+export const NETWORK_ID = '4'
+export const NETWORK_NAME = 'Rinkeby'
+function getOpenSeaUrlInternal(tokenId) {
+  return `https://testnets.opensea.io/assets/${CONTRACT_ADDRESS}/${tokenId}`
+}
 
 /**
  * General MetaMask manager, controll account related logic
@@ -70,6 +75,13 @@ class MetaMaskManager {
       // this.showMessage('MetaMask read account failed')
     }
   }
+
+  // return string
+  getNetworkId() {
+    const network = window.ethereum?.networkVersion || null
+    console.log('network', network, typeof network)
+    return network
+  }
 }
 
 /**
@@ -117,7 +129,7 @@ class ContractManager extends MetaMaskManager {
  *
  * https://web3js.readthedocs.io/en/v1.2.1/web3-eth-contract.html#methods-mymethod-call
  */
-export default class MeteficateContract extends ContractManager {
+export class MeteficateContract extends ContractManager {
 
   constructor() {
     super(ABI, CONTRACT_ADDRESS)
@@ -216,5 +228,15 @@ export default class MeteficateContract extends ContractManager {
       console.error(e)
       throw Error('Query token failed')
     }
+  }
+
+  checkNetwork() {
+    if (this.getNetworkId() !== NETWORK_ID) {
+      throw Error('Please swith to network ' + NETWORK_NAME)
+    }
+  }
+
+  getOpenSeaUrl(tokenId) {
+    return getOpenSeaUrlInternal(tokenId)
   }
 }

@@ -1,9 +1,9 @@
 import React from 'react'
 import card from '../resources/card_example.png'
 import ConnectButton from '../widget/ConnectButton'
-import MeteficateContract, { CONTRACT_ADDRESS } from './Contract'
+import { MeteficateContract } from './Contract'
 import './Metaficate.scss'
-import {ReactComponent as OpenSeaLogo} from '../resources/opensea.svg'
+import { ReactComponent as OpenSeaLogo } from '../resources/opensea.svg'
 
 class Metaficate extends React.Component {
 
@@ -19,7 +19,7 @@ class Metaficate extends React.Component {
     this.contract = new MeteficateContract()
 
     this.onButtonClick = this.onButtonClick.bind(this)
-    this.onOpenSeaClick = this.onOpenSeaClick.bind(this)
+    this.startOpenSea = this.startOpenSea.bind(this)
   }
 
   componentWillUnmount() {
@@ -37,10 +37,10 @@ class Metaficate extends React.Component {
     }
   }
 
-  onOpenSeaClick(e) {
+  startOpenSea(e) {
     e.preventDefault()
-    const url = `https://testnets.opensea.io/assets/${CONTRACT_ADDRESS}/${this.state.tokenId}`
-    window.open(url , '_blank')
+    const url = this.contract.getOpenSeaUrl(this.state.tokenId)
+    window.open(url, '_blank')
   }
 
   async connectMatamask() {
@@ -57,6 +57,7 @@ class Metaficate extends React.Component {
   async claim() {
     console.log('claim')
     try {
+      this.contract.checkNetwork()
       this.setState({ claiming: true })
       // const tokenId = await this.contract.mint()
       // console.log('mint result', tokenId)
@@ -86,7 +87,7 @@ class Metaficate extends React.Component {
           <div className="metaficate-title-text">The Graph Curator Metaficate</div>
         </div>
         <div className="metaficate-image">
-        <img src={card} className="card-img" alt="Card Example" />
+          <img src={card} className="card-img" alt="Card Example" />
         </div>
         <div className="metaficate-title">
           <div className="metaficate-text">Curators use their knowledge of the web3 ecosystem to assess and signal on the subgraphs that should be indexed by The Graph Network.
@@ -106,10 +107,10 @@ class Metaficate extends React.Component {
           <div className="metaficate-title-text">Congratulations!</div>
         </div>
         <div className="metaficate-image">
-          <img src={this.state.tokenSVG} className="card-img" alt="Card" />
+          <img src={this.state.tokenSVG} className="card-img metaficate-clickable" alt="Card" onClick={this.startOpenSea} />
         </div>
         <div className="metaficate-image">
-          <OpenSeaLogo className="metaficate-button" onClick={this.onOpenSeaClick} />
+          <OpenSeaLogo className="metaficate-clickable" onClick={this.startOpenSea} />
         </div>
       </>
     )
