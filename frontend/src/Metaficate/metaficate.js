@@ -1,8 +1,9 @@
 import React from 'react'
 import card from '../resources/card_example.png'
 import ConnectButton from '../widget/ConnectButton'
-import MeteficateContract from './Contract'
+import MeteficateContract, { CONTRACT_ADDRESS } from './Contract'
 import './Metaficate.scss'
+import {ReactComponent as OpenSeaLogo} from '../resources/opensea.svg'
 
 class Metaficate extends React.Component {
 
@@ -10,12 +11,15 @@ class Metaficate extends React.Component {
     super(props)
     this.state = {
       address: null,
-      svg: null,
-      minting: false,
+      claiming: false,
+      tokenId: null,
+      tokenSVG: null,
     }
 
     this.contract = new MeteficateContract()
+
     this.onButtonClick = this.onButtonClick.bind(this)
+    this.onOpenSeaClick = this.onOpenSeaClick.bind(this)
   }
 
   componentWillUnmount() {
@@ -24,15 +28,19 @@ class Metaficate extends React.Component {
 
   onButtonClick(event) {
     event.preventDefault()
-    if (this.state.svg) {
-      // do nothing
-    } else if (this.state.minting) {
+    if (this.state.claiming) {
       // do nothing
     } else if (this.state.address) {
       this.claim()
     } else {
       this.connectMatamask()
     }
+  }
+
+  onOpenSeaClick(e) {
+    e.preventDefault()
+    const url = `https://testnets.opensea.io/assets/${CONTRACT_ADDRESS}/${this.state.tokenId}`
+    window.open(url , '_blank')
   }
 
   async connectMatamask() {
@@ -49,34 +57,24 @@ class Metaficate extends React.Component {
   async claim() {
     console.log('claim')
     try {
-      this.setState({ minting: true })
+      this.setState({ claiming: true })
       // const tokenId = await this.contract.mint()
       // console.log('mint result', tokenId)
       const tokenId = 1
       const data = await this.contract.tokenInfo(tokenId)
       console.log('token data', data)
-      const svg = data && data.svg
-      this.setState({ svg, minting: false })
+      const tokenSVG = data && data.image
+      this.setState({ tokenId, tokenSVG, claiming: false })
     } catch (e) {
-      this.setState({ minting: false })
+      this.setState({ claiming: false })
       window.alert(e.message)
     }
   }
 
-  renderImage() {
-    if (this.state.svg) {
-      return <img src={`data:image/svg+xml;utf8,${this.state.svg}`} className="card-img" alt="Card" />
-    } else {
-      return <img src={card} className="card-img" alt="Card Example" />
-    }
-  }
-
-  render() {
+  renderHome() {
     let buttonText
-    if (this.state.svg) {
-      buttonText = 'Claimed'
-    } else if (this.state.minting) {
-      buttonText = 'Minting...'
+    if (this.state.claiming) {
+      buttonText = 'Claiming...'
     } else if (this.state.address) {
       buttonText = 'Claim'
     } else {
@@ -88,7 +86,7 @@ class Metaficate extends React.Component {
           <div className="metaficate-title-text">The Graph Curator Metaficate</div>
         </div>
         <div className="metaficate-image">
-          {this.renderImage()}
+        <img src={card} className="card-img" alt="Card Example" />
         </div>
         <div className="metaficate-title">
           <div className="metaficate-text">Curators use their knowledge of the web3 ecosystem to assess and signal on the subgraphs that should be indexed by The Graph Network.
@@ -99,6 +97,30 @@ class Metaficate extends React.Component {
         </div>
       </>
     )
+  }
+
+  renderClaimed() {
+    return (
+      <>
+        <div className="metaficate-title">
+          <div className="metaficate-title-text">Congratulations!</div>
+        </div>
+        <div className="metaficate-image">
+          <img src={this.state.tokenSVG} className="card-img" alt="Card" />
+        </div>
+        <div className="metaficate-image">
+          <OpenSeaLogo className="metaficate-button" onClick={this.onOpenSeaClick} />
+        </div>
+      </>
+    )
+  }
+
+  render() {
+    if (this.state.tokenId) {
+      return this.renderClaimed()
+    } else {
+      return this.renderHome()
+    }
   }
 }
 

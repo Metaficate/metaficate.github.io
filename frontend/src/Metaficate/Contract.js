@@ -2,18 +2,9 @@
 import Web3 from 'web3';
 import { Base64 } from 'js-base64'
 
-// Usage
-// const contract = new Contract()
-// await contract.connect()
-// const tokenId = await contract.mint()
-// console.log('mint result', tokenId)
-// const data = await contract.tokenInfo(tokenId)
-// console.log('token data', data)
-// https://web3js.readthedocs.io/en/v1.2.1/web3-eth-contract.html#methods-mymethod-call
-
 // TODO releace to official contract
 const ABI = require('./ABI.json')
-const CONTRACT_ADDRESS = '0x0e670B2Ad3aF9E6f409b732C378EA23C73CfdFAe'
+export const CONTRACT_ADDRESS = '0xee40148950e08e1F0bF6227EF76183151ab2D9A8'
 
 /**
  * General MetaMask manager, controll account related logic
@@ -116,6 +107,15 @@ class ContractManager extends MetaMaskManager {
 
 /**
  * Meteficate contract
+ * Usage
+ * const contract = new Contract()
+ * await contract.connect()
+ * const tokenId = await contract.mint()
+ * console.log('mint result', tokenId)
+ * const data = await contract.tokenInfo(tokenId)
+ * console.log('token data', data)
+ *
+ * https://web3js.readthedocs.io/en/v1.2.1/web3-eth-contract.html#methods-mymethod-call
  */
 export default class MeteficateContract extends ContractManager {
 
