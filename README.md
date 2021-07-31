@@ -27,7 +27,7 @@ Store data permanently on Ethereum mainnet is extremely expensive. For a more af
 
 Currently, we added support for Polygon. In the future, we will add support for other Layer 2 scaling solutions including Optimistic, Arbitrum, etc. We also consider supporting other public chains.
   
-  ## EXAMPLE 1: The Graph Curator Metafication
+  ## EXAMPLE 1: The Graph Curator Metaficate
  
 Metaficate was built for the [Layer2 Hackathon](http://hackathon.iosg.vc/?ref=metaficate) launched by [IOSG VENTURES](https://iosg.vc/?ref=metaficate) and [CHAINLINK](https://chain.link/?ref=metaficate). This is an attempt to start from scratch, the product still needs to be perfected.
 
