@@ -59,9 +59,9 @@ class Metaficate extends React.Component {
     try {
       this.contract.checkNetwork()
       this.setState({ claiming: true })
-      // const tokenId = await this.contract.mint()
-      // console.log('mint result', tokenId)
-      const tokenId = 1
+      const tokenId = await this.contract.mint()
+      console.log('mint result', tokenId)
+      // const tokenId = 1
       const data = await this.contract.tokenInfo(tokenId)
       console.log('token data', data)
       const tokenSVG = data && data.image
