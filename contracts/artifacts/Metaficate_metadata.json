@@ -6,18 +6,7 @@
 	"output": {
 		"abi": [
 			{
-				"inputs": [
-					{
-						"internalType": "string",
-						"name": "name_",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "symbol_",
-						"type": "string"
-					}
-				],
+				"inputs": [],
 				"stateMutability": "nonpayable",
 				"type": "constructor"
 			},
@@ -158,6 +147,11 @@
 						"internalType": "uint8",
 						"name": "color_index",
 						"type": "uint8"
+					},
+					{
+						"internalType": "uint8",
+						"name": "order_index",
+						"type": "uint8"
 					}
 				],
 				"name": "createIcon",
@@ -228,6 +222,30 @@
 						"internalType": "bool",
 						"name": "",
 						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "metas",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "addr",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "key",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -374,30 +392,6 @@
 						"internalType": "string",
 						"name": "",
 						"type": "string"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"name": "tokenInfoMap",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "addr",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "ts",
-						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -594,11 +588,11 @@
 			]
 		},
 		"Metaficate.sol": {
-			"keccak256": "0x960a1aa5b04dc9aef074069f91ccca6a9e8cc747e0baf3cb45a614bcf4761729",
+			"keccak256": "0xd73075d053e4e2591d6a74f8535e17ee7625d4422b73bc4cd072e073813d888f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://cc26004983c60a7b0ba3206b3b4346e3b0ca866f6ddba07dd9179319489c4e5d",
-				"dweb:/ipfs/QmTY1c62hUW2gwKaVdEG6u9ZXk2VWvayUHSV3jpFg8nEmU"
+				"bzz-raw://412ffcbfe57c2e7ee95390662bf7c29cd5999a6f88063a00570996cc6fe90508",
+				"dweb:/ipfs/QmZChPDFE2exqFtfCiz32iMkfgffNHfLm5BJY9fkeYAHvi"
 			]
 		}
 	},
