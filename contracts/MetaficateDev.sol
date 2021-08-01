@@ -122,6 +122,9 @@ contract Metaficate is ERC721, ChainlinkClient {
     uint256 private fee;
     uint256 public combinedInfo;
 
+    mapping(bytes32 => address) public requestIdToSender;
+    mapping(bytes32 => uint256) public requestIdToTimeStamp;
+
     constructor() ERC721('Metaficate', 'MFT') {
         /*
         // Kovan Testnet
@@ -137,7 +140,7 @@ contract Metaficate is ERC721, ChainlinkClient {
         fee = 10 ** 16; // 0.01 LINK
     }
 
-    function requestCuratorInfo() public returns (bytes32 requestId) 
+    function requestCuratorInfo() public returns (bytes32) 
     {
         
         Chainlink.Request memory request = buildChainlinkRequest(jobId, address(this), this.fulfill.selector);
@@ -152,30 +155,37 @@ contract Metaficate is ERC721, ChainlinkClient {
         request.addStringArray("path", path);
         
         // Sends the request
-        return sendChainlinkRequestTo(oracle, request, fee);
+        bytes32 requestId = sendChainlinkRequestTo(oracle, request, fee);
+        requestIdToSender[requestId] = msg.sender;
+        requestIdToTimeStamp[requestId] = block.timestamp;
+        return requestId;
     }
     
-    function fulfill(bytes32 _requestId, uint256 _combinedInfo) public recordChainlinkFulfillment(_requestId)
+    function fulfill(bytes32 requestId, uint256 _combinedInfo) public recordChainlinkFulfillment(requestId)
     {
         combinedInfo = _combinedInfo;
-    }
 
-    function mint() public returns (uint256 tokenId) {
-        tokenId = tokenCount;
-        tokenCount = tokenCount + 1;
+        address ownerAddress = requestIdToSender[requestId];
+        uint256 blockTimestamp = requestIdToTimeStamp[requestId];
+        
+        uint256 newItemId = tokenCount;
+        
+        _safeMint(ownerAddress, newItemId);
+        
         Meta memory meta;
-        meta.addr = msg.sender;
-        meta.key = uint(keccak256(abi.encodePacked(tokenId, block.timestamp, msg.sender)));
+        meta.addr = ownerAddress;
+        meta.key = uint(keccak256(abi.encodePacked(newItemId, blockTimestamp, ownerAddress)));
         meta.times = combinedInfo / 1e10;
         meta.createdAt = combinedInfo % 1e10;
-        metas[tokenId] = meta;
-        super._mint(msg.sender, tokenId);
+        metas[newItemId] = meta;
+        
+        tokenCount = tokenCount + 1;
     }
 
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
         require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
 
-        string memory name = 'The Graph Curator Metafication';
+        string memory name = 'The Graph Curator Metaficate';
         string memory desc = 'Curators use their knowledge of the web3 ecosystem to assess and signal on the subgraphs that should be indexed by The Graph Network. Metaficate is an on-chain generative art and decentralized certificate created for the metaverse and the web 3 world.';
         string memory image = Base64.encode(bytes(createImage(tokenId)));
 
