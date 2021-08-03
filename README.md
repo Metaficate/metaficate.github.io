@@ -45,6 +45,7 @@ Recently, the POAP badge NFTs, distributed by The Graph, has been subjected to m
 	<br />
 </div>
 
+The whitelist restriction in the contract has been removed for now, so you can participate in the test even if you are not a curator → [demo](https://www.metaficate.com/) 
 
 ## More use cases
 
